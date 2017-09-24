@@ -17,9 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('posts', 'PostController@index');
-Route::get('posts/{post}', 'PostController@show');
-Route::get('posts/{post}/images', 'PostController@images');
-Route::post('posts', 'PostController@store');
-Route::put('posts/{post}', 'PostController@update');
-Route::delete('posts/{post}', 'PostController@delete');
+Route::get('blocks', 'BlockController@index');
+Route::get('blocks/{block}', 'BlockController@show');
+Route::post('blocks', 'BlockController@store');
+Route::put('blocks/{block}', 'BlockController@update');
+Route::delete('blocks/{block}', 'BlockController@delete');

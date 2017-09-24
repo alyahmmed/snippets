@@ -72,6 +72,8 @@ trait AuthenticatesUsers
      */
     protected function attemptLogin(Request $request)
     {
+        var_dump($this->guard()->attempt($this->credentials($request)));
+        exit();
         return $this->guard()->attempt(
             $this->credentials($request), $request->has('remember')
         );
@@ -113,7 +115,8 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        var_dump($this->guard()->user());
+        exit();
     }
 
     /**
