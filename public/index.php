@@ -23,6 +23,28 @@ require __DIR__.'/../bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
+| Load Vendor overrides
+|--------------------------------------------------------------------------
+|
+| In directory override/VENDOR_NAME/PACKAGE_NAME and create a new
+|  php class with same name and name space; ideally copy the old
+|  class and edit it.
+|
+*/
+
+$path = realpath(__DIR__.'/../override');
+if ($path) {
+	$files = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator($path),
+		RecursiveIteratorIterator::SELF_FIRST
+	);
+	foreach($files as $name => $file){
+	    if(! is_dir($name)) require_once $name;
+	}
+}
+
+/*
+|--------------------------------------------------------------------------
 | Turn On The Lights
 |--------------------------------------------------------------------------
 |
