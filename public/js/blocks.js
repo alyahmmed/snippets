@@ -120,6 +120,7 @@ function edit_block(block_id) {
           $('#editBlockForm .modal-body').html($('#blockFields').html());
           $('#editBlockForm .block-title').val(block.title);
           $('#editBlockForm .block-body').html(block.body);
+          $('#editBlockForm .block-tags').val(block.tags);
           $('#editBlockForm').data('block-id', block_id);
           $("#editModal").modal();
         }  
@@ -134,6 +135,7 @@ function show_block(block, modal) {
     show_modal.find('.modal-body').html('');
     show_modal.find('.modal-body').
       append($('<h2/>').html(block.title)).
+      append(render_tags(block.tags)).
       append($('<article/>').html($('<code/>').html(
         $('<pre/>').
           css('margin-top', '5px').
@@ -141,6 +143,22 @@ function show_block(block, modal) {
       )));
     show_modal.modal();
   }
+}
+
+function render_tags(tags) {
+  var tags_html = $('<p/>');
+  if (tags) {
+    tags = tags.split(',');
+    for (var i = 0; i < tags.length; i++) {
+      tags_html.append(
+        $('<span/>').
+          addClass('badge').
+          css('margin-right', '5px').
+          html(tags[i].trim())
+      );
+    }
+  }
+  return tags_html;
 }
 
 function htmlEncode(value){

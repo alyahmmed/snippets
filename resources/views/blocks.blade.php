@@ -55,7 +55,11 @@
     </div>
     <div class="form-group">
       <label for="body">Body:</label>
-      <textarea name="body" class="block-body form-control" id="body" required="required"></textarea>
+      <textarea name="body" style="height: 150px" class="block-body form-control" id="body" required="required"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags:</label>
+      <input type="text" name="tags" class="block-tags form-control" id="title"/>
     </div>
   </div>
 

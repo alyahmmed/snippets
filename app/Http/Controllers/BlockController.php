@@ -22,6 +22,7 @@ class BlockController extends Controller
         $block = new Block();
         $block->title =$request->get('title');
         $block->body =$request->get('body');
+        $block->tags =$request->get('tags');
         $block->save();
 
         return response()->json($block, 201);
@@ -31,6 +32,7 @@ class BlockController extends Controller
     {
         $block->title =$request->get('title');
         $block->body =$request->get('body');
+        $block->tags =$request->get('tags');
         $block->save();
 
         return response()->json($block, 200);
