@@ -20,6 +20,7 @@ class BlockController extends Controller
     public function store(Request $request)
     {
         $block = new Block();
+        $block->title =$request->get('title');
         $block->body =$request->get('body');
         $block->save();
 
@@ -28,6 +29,7 @@ class BlockController extends Controller
 
     public function update(Request $request, Block $block)
     {
+        $block->title =$request->get('title');
         $block->body =$request->get('body');
         $block->save();
 

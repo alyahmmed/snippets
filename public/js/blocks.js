@@ -23,7 +23,7 @@ function get_blocks(page, refresh) {
         $(response.data).each(function(i, block){
           // build row HTML
           var block_details = $('#block_details').clone().
-            find('.block-show').html(block.body);
+            find('.block-show').html(block.title);
           var block_actions = $('#block_actions').clone().show();
           var block_row = $('<tr/>').
             append($('<td/>').addClass('col-md-8').
@@ -117,28 +117,11 @@ function edit_block(block_id) {
     $.ajax({url: 'api/blocks/'+block_id,
       success: function(block, status){
         if (block.id) {
-          $('#editPostForm .modal-body').html($('#blockFields').html());
-          $('#editPostForm .block-body').html(block.body);
-          $('#editPostForm').data('block-id', block_id);
+          $('#editBlockForm .modal-body').html($('#blockFields').html());
+          $('#editBlockForm .block-title').val(block.title);
+          $('#editBlockForm .block-body').html(block.body);
+          $('#editBlockForm').data('block-id', block_id);
           $("#editModal").modal();
-
-          get_images(block_id, $("#editModal"));
-        }  
-      }
-    });
-  }
-}
-
-function get_images(block_id, modal) {
-  if (block_id) {
-    $.ajax({url: 'api/blocks/'+block_id+'/images',
-      success: function(images, status){
-        if (images) {
-          for (var i = images.length - 1; i >= 0; i--) {
-            var img = $('<img/>').attr('src',
-              'uploads/'+images[i].filename);
-            modal.find('.modal-body').append(img);
-          }
         }  
       }
     });
@@ -150,20 +133,27 @@ function show_block(block, modal) {
     var show_modal = $("#showModal");
     show_modal.find('.modal-body').html('');
     show_modal.find('.modal-body').
-      append($('<article/>').html(block.body));
+      append($('<h2/>').html(block.title)).
+      append($('<article/>').html($('<code/>').html(
+        $('<pre/>').
+          css('margin-top', '5px').
+          html(htmlEncode(block.body))
+      )));
     show_modal.modal();
-
-    get_images(block.id, $("#showModal"));
   }
 }
 
-$('#newPostBtn').click(function() {
-  $('#newPostForm .modal-body').html($('#blockFields').html());
+function htmlEncode(value){
+  return $('<div/>').text(value).html();
+}
+
+$('#newBlockBtn').click(function() {
+  $('#newBlockForm .modal-body').html($('#blockFields').html());
 });
 
-$('#newPostForm').submit(function() {
+$('#newBlockForm').submit(function() {
   var data = new FormData($(this)[0]);
-  $.ajax({url: 'api/blocks', type: 'block',
+  $.ajax({url: 'api/blocks', type: 'post',
     cache: false, contentType: false, processData: false,
     data: data, success: function(block, status){
       if (block.id) {
@@ -176,10 +166,10 @@ $('#newPostForm').submit(function() {
   return false;
 });
 
-$('#editPostForm').submit(function() {
+$('#editBlockForm').submit(function() {
   var block_id = $(this).data('block-id');
   var data = new FormData($(this)[0]);
-  $.ajax({url: 'api/blocks/'+block_id, type: 'block',
+  $.ajax({url: 'api/blocks/'+block_id, type: 'post',
     cache: false, contentType: false, processData: false,
     data: data, success: function(block, status){
       if (block.id) {

@@ -50,12 +50,12 @@
 
   <div id="blockFields" style="display: none;">
     <div class="form-group">
-      <label for="body">Body:</label>
-      <textarea name="body" class="block-body form-control" id="body" required="required"></textarea>
+      <label for="title">Title:</label>
+      <input type="text" name="title" class="block-title form-control" id="title" required="required"/>
     </div>
     <div class="form-group">
-      <label for="">Images:</label>
-      <input type="file" name="images[]" class="form-control" multiple="multiple" />
+      <label for="body">Body:</label>
+      <textarea name="body" class="block-body form-control" id="body" required="required"></textarea>
     </div>
   </div>
 
@@ -128,7 +128,7 @@
 
   <script data-require="jquery@*" data-semver="2.0.3" src="//code.jquery.com/jquery-2.0.3.min.js"></script>
   <script data-require="bootstrap@3.1.1" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/js/blocks.js"></script>
+  <script type="text/javascript" src="{{ asset('js/blocks.js') }}"></script>
   
   <script type="text/javascript">get_blocks(1);</script>
 

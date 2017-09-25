@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Snippets</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -69,12 +69,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Snippets
                 </div>
 
                 <div class="links">
-                    <a href="/task1">Task 1</a>
-                    <a href="/task2">Task 2</a>
+                    <a href="{{url('blocks')}}">Blocks</a>
                 </div>
             </div>
         </div>

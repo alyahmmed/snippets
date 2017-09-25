@@ -16,7 +16,7 @@ class AddDemoUser extends Migration
         DB::table('users')->insert([
             'id' => 1,
             'username' => 'demo',
-            'password' => sha1('demo'),
+            'password' => password_hash('demo', PASSWORD_BCRYPT),
         ]);
     }
 
@@ -27,6 +27,6 @@ class AddDemoUser extends Migration
      */
     public function down()
     {
-        //
+        DB::table('users')->where('id', 1)->delete();
     }
 }
