@@ -7,9 +7,16 @@ use App\Block;
 
 class BlockController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Block::paginate(5);
+        $blocks = Block::orderBy('created_at', 'DESC');
+        $keyword = trim($request->get('keyword'));
+        if (strlen($keyword) > 2) {
+            $blocks->where('title', 'like', '%'.$keyword.'%');
+            $blocks->orWhere('body', 'like', '%'.$keyword.'%');
+            $blocks->orWhere('tags', 'like', '%'.$keyword.'%');
+        }
+        return $blocks->paginate(5);
     }
 
     public function show(Block $block)
@@ -20,9 +27,9 @@ class BlockController extends Controller
     public function store(Request $request)
     {
         $block = new Block();
-        $block->title =$request->get('title');
-        $block->body =$request->get('body');
-        $block->tags =$request->get('tags');
+        $block->title = $request->get('title');
+        $block->body = $request->get('body');
+        $block->tags = $request->get('tags');
         $block->save();
 
         return response()->json($block, 201);
@@ -30,9 +37,9 @@ class BlockController extends Controller
 
     public function update(Request $request, Block $block)
     {
-        $block->title =$request->get('title');
-        $block->body =$request->get('body');
-        $block->tags =$request->get('tags');
+        $block->title = $request->get('title');
+        $block->body = $request->get('body');
+        $block->tags = $request->get('tags');
         $block->save();
 
         return response()->json($block, 200);
