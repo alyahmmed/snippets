@@ -10,6 +10,8 @@ class BlockController extends Controller
     public function index(Request $request)
     {
         $blocks = Block::orderBy('created_at', 'DESC');
+        if($request->all) return $blocks->get();
+
         $keyword = trim($request->get('keyword'));
         if (strlen($keyword) > 2) {
             $blocks->where('title', 'like', '%'.$keyword.'%');
