@@ -18,7 +18,8 @@ class BlockController extends Controller
             $blocks->orWhere('body', 'like', '%'.$keyword.'%');
             $blocks->orWhere('tags', 'like', '%'.$keyword.'%');
         }
-        return $blocks->paginate(5);
+        // return $blocks->paginate(5);
+        return $blocks->get();
     }
 
     public function show(Block $block)
